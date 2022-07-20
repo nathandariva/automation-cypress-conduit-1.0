@@ -16,7 +16,7 @@
 
 ## Exemplo
     {
-    "BASE_URL": Deve informar a url do site,
+    "BASE_URL": "https://demo.realworld.io/#",
     "NAME": "Deve informar um nome fictício aqui",
     "EMAIL": "Deve ter uma conta criada na plataforma, informar seu email aqui.",
     "PASSWORD": "Informar a senha correta do respectivo email utilizado na plataforma."

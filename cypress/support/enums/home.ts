@@ -7,7 +7,7 @@ enum HOME {
     //AFTER LOGIN
     BTN_YOUR_FEED = '.nav-item a[href=""]',
     BTN_HOME = 'a[href="#/"]',
-    BTN_NEW_ARTICLE = 'a[href="#/editor"]',
+    BTN_NEW_ARTICLE = "a[href*='editor']",
     BTN_SETTINGS = 'a[href="#/settings"]',
     BNT_PROFILE = 'a[href="#/@Neithan%20Teste%20Auto"]'
 

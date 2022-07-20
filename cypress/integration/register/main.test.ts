@@ -10,6 +10,7 @@ function accessScreenRegister() {
     cy.url()
         .should('include', 'register')
 }
+
 describe('Perform Registration - Success Scenarios', () => {
 
     it('Should register on the platform - Sign Up', () => {
