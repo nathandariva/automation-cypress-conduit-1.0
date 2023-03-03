@@ -2,28 +2,11 @@ import { REGISTER, HOME, LOGIN, SETTINGS } from '../../../support/enums'
 
 describe('Change Password - Success Scenarios', () => {
 
-    function login(password) {
-        cy.get(LOGIN.INPUT_LOGIN)
-            .should('be.visible')
-            .type(Cypress.env("EMAIL"))
-
-        cy.get(LOGIN.INPUT_PASSWORD)
-            .should('be.visible')
-            .type(password)
-
-        cy.get(LOGIN.BTN_LOGIN)
-            .should('be.visible')
-            .click()
-
-        cy.get(HOME.DIV_TO_BAR)
-            .should('contain', Cypress.env("NAME"))
-    }
-
     beforeEach(() => {
         cy.visit(Cypress.env("BASE_URL") + "login")
-        login(Cypress.env("PASSWORD"))
-
+        cy.doLogin(Cypress.env("PASSWORD"))
     })
+
     it('Should change password', () => {
         const change_and_return_the_original_password = [
             {
@@ -65,16 +48,10 @@ describe('Change Password - Success Scenarios', () => {
                 .then(() => {
                     cy.get(HOME.BTN_SIGN_IN)
                         .should('be.visible')
-                        .click()                   
+                        .click()
                 })
 
-            //Realiza Login 
-
-            login(pwd.fill_pwd)
+            cy.doLogin(pwd.fill_pwd)
         })
-
-
-
     });
-
 });
