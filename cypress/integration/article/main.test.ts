@@ -1,23 +1,10 @@
-import { LOGIN, HOME, NEW_ARTICLE } from '../../support/enums'
+import { LOGIN, HOME, NEW_ARTICLE, ARTICLE } from '../../support/enums'
 
 describe('Post an article - Success Scenarios', () => {
     beforeEach(() => {
         cy.visit(Cypress.env("BASE_URL") + "login")
+        cy.doLogin(Cypress.env("PASSWORD"))
 
-        cy.get(LOGIN.INPUT_LOGIN)
-            .should('be.visible')
-            .type(Cypress.env("EMAIL"))
-
-        cy.get(LOGIN.INPUT_PASSWORD)
-            .should('be.visible')
-            .type(Cypress.env("PASSWORD"))
-
-        cy.get(LOGIN.BTN_LOGIN)
-            .should('be.visible')
-            .click()
-
-        cy.get(HOME.DIV_TO_BAR)
-            .should('contain', Cypress.env("NAME"))
     })
 
     it('Should post a new article', () => {
@@ -36,11 +23,11 @@ describe('Post an article - Success Scenarios', () => {
                 fill: '#cypress #automation #automacao'
             },
         ]
-            
-            cy.get(HOME.BTN_NEW_ARTICLE)
+
+        cy.get(HOME.BTN_NEW_ARTICLE)
             .should('be.visible')
             .click();
-            
+
         cy.url()
             .should('contain', 'editor');
 
@@ -62,10 +49,10 @@ describe('Post an article - Success Scenarios', () => {
         cy.url()
             .should('contain', 'article/');
 
-        cy.get('div h1')
-        .should('be.visible')
-        .and('have.text', 'Automação com Cypress Teste')
+        cy.get(ARTICLE.DIV_TITLE)
+            .should('be.visible')
+            .and('have.text', 'Automação com Cypress Teste')
 
-        cy.get("button[class*='btn-outline-dange']").eq(1).click()      
+        cy.get("button[class*='btn-outline-dange']").eq(1).click()
     });
 })
