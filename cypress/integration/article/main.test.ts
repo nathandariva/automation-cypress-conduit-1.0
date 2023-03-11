@@ -56,3 +56,56 @@ describe('Post an article - Success Scenarios', () => {
         cy.get("button[class*='btn-outline-dange']").eq(1).click()
     });
 })
+
+describe.only('Attempting to post an article - Alternative Scenarios', () => {
+
+    it('Validating error messages when keeping fields blank', () => {
+        cy.visit(Cypress.env("BASE_URL") + "login")
+        cy.doLogin(Cypress.env("PASSWORD"))
+
+        cy.get(HOME.BTN_NEW_ARTICLE)
+            .should('be.visible')
+            .click();
+
+        cy.url()
+            .should('contain', 'editor');
+
+        cy.get(NEW_ARTICLE.BTN_PUBLISH)
+            .should('be.visible')
+            .click()
+
+        cy.get(ARTICLE.MSG_ERROR)
+            .should('be.visible')
+            .and('contain', "title can't be blank")
+
+        cy.get(NEW_ARTICLE.INPUTS)
+            .eq(0)
+            .type('Any title')
+
+        cy.get(NEW_ARTICLE.BTN_PUBLISH)
+            .should('be.visible')
+            .click()
+
+        cy.get(ARTICLE.MSG_ERROR)
+            .should('be.visible')
+            .and('contain', "description can't be blank")
+
+        cy.get(NEW_ARTICLE.INPUTS)
+            .eq(1)
+            .type('Any description')
+
+        cy.get(NEW_ARTICLE.BTN_PUBLISH)
+            .should('be.visible')
+            .click()
+
+        cy.get(ARTICLE.MSG_ERROR)
+            .should('be.visible')
+            .and('contain', "body can't be blank")
+
+
+
+
+
+
+    });
+});
