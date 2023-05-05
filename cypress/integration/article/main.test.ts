@@ -57,7 +57,7 @@ describe('Post an article - Success Scenarios', () => {
     });
 })
 
-describe.only('Attempting to post an article - Alternative Scenarios', () => {
+describe('Attempting to post an article - Alternative Scenarios', () => {
 
     it('Validating error messages when keeping fields blank', () => {
         cy.visit(Cypress.env("BASE_URL") + "login")
@@ -70,42 +70,46 @@ describe.only('Attempting to post an article - Alternative Scenarios', () => {
         cy.url()
             .should('contain', 'editor');
 
+
+
+        const validMessageAndFillInTheFields = [
+            {
+                msgError: "title can't be blank",
+                fieldsEq: 0,
+                fillFields: "Any title"
+            },
+
+            {
+                msgError: "description can't be blank",
+                fieldsEq: 1,
+                fillFields: "Any description"
+            },
+
+            {
+                msgError: "body can't be blank",
+                fieldsEq: 0,
+                fillFields: " "
+            },
+
+        ]
+
+
         cy.get(NEW_ARTICLE.BTN_PUBLISH)
             .should('be.visible')
             .click()
 
-        cy.get(ARTICLE.MSG_ERROR)
-            .should('be.visible')
-            .and('contain', "title can't be blank")
+        validMessageAndFillInTheFields.map(validate => {
+            cy.get(ARTICLE.MSG_ERROR)
+                .should('be.visible')
+                .and('contain', validate.msgError)
 
-        cy.get(NEW_ARTICLE.INPUTS)
-            .eq(0)
-            .type('Any title')
+            cy.get(NEW_ARTICLE.INPUTS)
+                .eq(validate.fieldsEq)
+                .type(validate.fillFields)
 
-        cy.get(NEW_ARTICLE.BTN_PUBLISH)
-            .should('be.visible')
-            .click()
-
-        cy.get(ARTICLE.MSG_ERROR)
-            .should('be.visible')
-            .and('contain', "description can't be blank")
-
-        cy.get(NEW_ARTICLE.INPUTS)
-            .eq(1)
-            .type('Any description')
-
-        cy.get(NEW_ARTICLE.BTN_PUBLISH)
-            .should('be.visible')
-            .click()
-
-        cy.get(ARTICLE.MSG_ERROR)
-            .should('be.visible')
-            .and('contain', "body can't be blank")
-
-
-
-
-
-
+            cy.get(NEW_ARTICLE.BTN_PUBLISH)
+                .should('be.visible')
+                .click()
+        })
     });
 });
