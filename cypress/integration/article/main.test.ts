@@ -101,11 +101,5 @@ describe.only('Attempting to post an article - Alternative Scenarios', () => {
         cy.get(ARTICLE.MSG_ERROR)
             .should('be.visible')
             .and('contain', "body can't be blank")
-
-
-
-
-
-
     });
 });
